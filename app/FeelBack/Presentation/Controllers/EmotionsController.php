@@ -68,7 +68,7 @@ class EmotionsController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateCategory(Request $request, $emotion_code) {
+    public function updatEmotion(Request $request, $emotion_code) {
         $emotion = Emotion::where('code', $emotion_code)->get();
 
         if (null == $emotion) {
