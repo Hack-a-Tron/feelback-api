@@ -8,6 +8,7 @@ use App\FeelBack\Persistence\ActiveRecord\Result;
 use App\FeelBack\Persistence\ActiveRecord\Survey;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 /**
  * Class SurveysController
@@ -34,11 +35,27 @@ class SurveysController extends Controller
     public function storeSurvey(Request $request) {
         $survey = new Survey();
 
-        $survey->code = $request->input('code');
+        $survey->code = (string) Str::uuid();
         $survey->title = $request->input('title');
         $survey->description = $request->input('description');
-
         $response = $survey->save();
+
+        //TODO: save entities assigned to survey
+
+        foreach ($request->input('entities') as $entity) {
+            $entity_details = Entity::where('code', '=', $entity['code'])->first();
+
+            DB::table('entity_to_survey')->insert([
+                [
+                    'survey_id' => $survey->id,
+                    'entity_id' => $entity_details->id,
+                    'order' => $entity['order']
+                ]
+            ]);
+        }
+
+        $response = $response->toArray();
+        $response['entities'] = $survey->entities()->get()->toArray();
 
         return response()->json([$response]);
     }
@@ -69,17 +86,34 @@ class SurveysController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateSurvey(Request $request, $survey_code) {
+        /** @var Survey $survey */
         $survey = Survey::where('code', $survey_code)->get();
 
         if (null == $survey) {
             return response()->json([], 404);
         }
 
-        $survey->code = $request->input('code');
         $survey->title = $request->input('title');
         $survey->description = $request->input('description');
 
         $response = $survey->save();
+
+        $survey->entities()->detach();
+
+        foreach ($request->input('entities') as $entity) {
+            $entity_details = Entity::where('code', '=', $entity['code'])->first();
+
+            DB::table('entity_to_survey')->insert([
+                [
+                    'survey_id' => $survey->id,
+                    'entity_id' => $entity_details->id,
+                    'order' => $entity['order']
+                ]
+            ]);
+        }
+
+        $response = $response->toArray();
+        $response['entities'] = $survey->entities()->get()->toArray();
 
         return response()->json([$response]);
     }
@@ -114,7 +148,7 @@ class SurveysController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function displaySurveyEntities($survey_code) {
-        $entities = Survey::where('code', '=', $survey_code)->first()->roles()->get();
+        $entities = Survey::where('code', '=', $survey_code)->first()->entities()->orderBy('order')->get();
 
         return response()->json($entities->toArray());
     }

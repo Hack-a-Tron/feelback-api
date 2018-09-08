@@ -18,6 +18,7 @@ class CreateEmotionTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->longText('description');
+            $table->string('image');
             $table->timestamps();
             $table->softDeletes();
 
