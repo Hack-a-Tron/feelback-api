@@ -1,7 +1,20 @@
 FROM php:7.2.8-fpm-stretch
 
+RUN sudo chmod -R gu+w /var/www/storage
+RUN sudo chmod -R guo+w /var/www/storage
+RUN sudo chmod -R gu+w /var/www/bootstrap/cache
+RUN sudo chmod -R guo+w /var/www/bootstrap/cache
+
+RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y \
+    && apt-get install -y git libmcrypt-dev mysql-client curl \
+    && docker-php-ext-install mcrypt mbstring pdo pdo_mysql zip openssl mbstring tokenizer xml ctype json \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+ADD php.ini /usr/local/etc/php/
 
 RUN apt-get update && apt-get install -q -y ssmtp mailutils && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get install nginx
 
 RUN docker-php-ext-install mysql mysqli sysvsem
 
@@ -13,3 +26,8 @@ RUN pecl install xdebug-2.5.5 \
     && echo "xdebug.remote_autostart=on" >> /usr/local/etc/php/conf.d/xdebug.ini
 
 RUN echo "localhost localhost.dev" >> /etc/hosts
+
+
+USER www-data
+
+WORKDIR /var/www

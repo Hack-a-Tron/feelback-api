@@ -4,21 +4,15 @@ services:
 
 
   web:
-    build: ./nginx
+    build: ./php
     restart: always
     ports:
       - 8888:80
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
     volumes:
       - ./../:/var/www
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    links:
-      - php
-
-  php:
-    build: ./php
-    restart: always
-    environment:
-      XDEBUG_CONFIG: remote_host=host.docker.internal
 
   db:
     build: ./db
