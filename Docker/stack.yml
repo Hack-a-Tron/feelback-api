@@ -9,7 +9,7 @@ services:
     ports:
       - 8888:80
     volumes:
-      - ./../:/var/www/html
+      - ./../:/var/www
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     links:
       - php
@@ -19,8 +19,6 @@ services:
     restart: always
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
-    links:
-      - maildev
 
   db:
     build: ./db
@@ -36,9 +34,3 @@ services:
     restart: always
     ports:
       - 8080:80
-
-
-  maildev:
-    image: djfarrelly/maildev
-    ports:
-      - 8081:80
