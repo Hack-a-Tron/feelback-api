@@ -47,3 +47,7 @@ $router->group(['middleware' => 'auth', 'prefix' => 'admin'], function () use ($
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('survey/{id}', ['uses' => 'SurveysController@displaySurvey']);
+$router->get('survey/{id}/entities', ['uses' => 'SurveysController@displayEntities']);
+$router->post('survey/{id}', ['uses' => 'SurveysController@saveSurveyEntry']);
