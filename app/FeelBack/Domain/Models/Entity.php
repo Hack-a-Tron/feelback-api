@@ -1,6 +1,6 @@
 <?php
 
-namespace Feelback\Domain\Models;
+namespace App\Feelback\Domain\Models;
 
 /**
  * Class Entity

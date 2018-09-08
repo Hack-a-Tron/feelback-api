@@ -1,9 +1,11 @@
 <?php
 
+namespace App\Feelback\Domain\Models;
 
-namespace Feelback\Domain\Models;
-
-
+/**
+ * Class Survey
+ * @package App\Feelback\Domain\Models
+ */
 class Survey
 {
     /**
