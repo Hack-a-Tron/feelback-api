@@ -5,25 +5,25 @@ namespace App\FeelBack\Persistence\ActiveRecord;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Survey
+ * Class Entity
  * @package App\FeelBack\Persistence\ActiveRecord
  */
-class Survey extends Model
+class Entity extends Model
 {
     /**
      * @var string
      */
-    protected $table = 'survey';
+    protected $table = 'entity';
 
     protected $guarded = ['id'];
 
     /**
-     * Relation with entities
+     * Relation with surveys
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function entities()
+    public function surveys()
     {
-        return $this->belongsToMany('App\FeelBack\Persistence\ActiveRecord\Entity', 'entity_to_survey');
+        return $this->belongsToMany('App\FeelBack\Persistence\ActiveRecord\Survey', 'entity_to_survey');
     }
 }
