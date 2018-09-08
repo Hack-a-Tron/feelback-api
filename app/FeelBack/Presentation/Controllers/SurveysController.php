@@ -2,6 +2,7 @@
 
 namespace App\FeelBack\Presentation\Controllers;
 
+use App\FeelBack\Persistence\ActiveRecord\Customer;
 use App\FeelBack\Persistence\ActiveRecord\Emotion;
 use App\FeelBack\Persistence\ActiveRecord\Entity;
 use App\FeelBack\Persistence\ActiveRecord\Result;
@@ -171,6 +172,7 @@ class SurveysController extends Controller
         $survey = Survey::where('code', '=', $survey_code)->first();
         $entity = Entity::where('code', '=', $request->input('entity'));
         $emotion = Emotion::where('code', '=', $request->input('emotion'));
+        $customer = Customer::where('code', '=', $request->input('customer'));
 
         if (null == $survey || null == $entity || null == $emotion) {
             return response()->json([], 404);
@@ -180,6 +182,7 @@ class SurveysController extends Controller
         $result->survey_id = $survey['id'];
         $result->entity_id = $entity['id'];
         $result->emotion_id = $emotion['id'];
+        $result->customer_id = $customer['id'];
         $result->intensity = $request->input('intensity');
 
         $response = $result->save();

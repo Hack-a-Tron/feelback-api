@@ -49,6 +49,12 @@ $router->group([
     $router->get('emotions/{id}', ['uses' => 'EmotionsController@showEmotion']);
     $router->post('emotions/{id}', ['uses' => 'EmotionsController@updateEmotion']);
     $router->delete('emotions/{id}', ['uses' => 'EmotionsController@deleteEmotion']);
+
+    $router->get('customers', ['uses' => 'CustomersController@list']);
+    $router->post('customers', ['uses' => 'CustomersController@store']);
+    $router->get('customers/{id}', ['uses' => 'CustomersController@get']);
+    $router->post('customers/{id}', ['uses' => 'CustomersController@update']);
+    $router->delete('customers/{id}', ['uses' => 'CustomersController@delete']);
 });
 
 $router->get('/', function () use ($router) {

@@ -19,6 +19,7 @@ class CreateResultTable extends Migration
             $table->unsignedInteger('survey_id');
             $table->unsignedInteger('entity_id');
             $table->unsignedInteger('emotion_id');
+            $table->unsignedInteger('customer_id');
             $table->integer('intensity');
             $table->timestamps();
             $table->softDeletes();
@@ -26,6 +27,7 @@ class CreateResultTable extends Migration
             $table->foreign('survey_id')->references('id')->on('survey');
             $table->foreign('entity_id')->references('id')->on('entity');
             $table->foreign('emotion_id')->references('id')->on('emotion');
+            $table->foreign('customer_id')->references('id')->on('customer');
         });
     }
 

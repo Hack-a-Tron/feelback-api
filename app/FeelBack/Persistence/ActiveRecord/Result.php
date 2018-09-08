@@ -47,4 +47,14 @@ class Result extends Model
     {
         return $this->belongsTo('App\FeelBack\Persistence\ActiveRecord\Entity');
     }
+
+    /**
+     * Relation with customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function customers()
+    {
+        return $this->hasOne('App\FeelBack\Persistence\ActiveRecord\Customer', 'customer_id', 'id');
+    }
 }
