@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateResultTable extends Migration
 {
@@ -35,6 +36,8 @@ class CreateResultTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('result');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

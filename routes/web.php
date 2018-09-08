@@ -28,7 +28,7 @@ $router->group([
 
     $router->get('reports', ['uses' => 'ReportsController@showReports']);
     $router->get('reports/{id}', ['uses' => 'ReportsController@showReport']);
-    $router->get('reports/create', ['uses' => 'ReportsController@CreateReport']);
+    $router->post('reports/create', ['uses' => 'ReportsController@CreateReport']);
 
     $router->get('results', ['uses' => 'ResultsController@showDashboard']);
 
