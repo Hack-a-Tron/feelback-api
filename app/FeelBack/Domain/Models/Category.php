@@ -8,26 +8,36 @@ namespace App\Feelback\Domain\Models;
  */
 class Category
 {
+
+    /**
+     * @var string
+     */
     private $code;
 
+    /**
+     * @var string
+     */
     private $name;
 
+    /**
+     * @var string
+     */
     private $description;
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
     /**
-     * @param mixed $code
+     * @param string $code
      *
-     * @return Category
+     * @return $this
      */
-    public function setCode($code)
+    public function setCode(string $code)
     {
         $this->code = $code;
 
@@ -35,19 +45,19 @@ class Category
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      *
      * @return Category
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -55,19 +65,19 @@ class Category
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param mixed $description
+     * @param string $description
      *
      * @return Category
      */
-    public function setDescription($description)
+    public function setDescription(string $description)
     {
         $this->description = $description;
 

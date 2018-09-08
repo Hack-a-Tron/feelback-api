@@ -34,6 +34,18 @@ class Emotion
     private $intensity;
 
     /**
+     * @return array
+     */
+    public static function getIntensities(): array
+    {
+        return [
+            self::INTENSITY_MILD,
+            self::INTENSITY_BASIC,
+            self::INTENSITY_INTENSE
+        ];
+    }
+
+    /**
      * @return string
      */
     public function getCode(): string
@@ -105,11 +117,25 @@ class Emotion
      * @param int $intensity
      *
      * @return Emotion
+     *
+     * @throws \InvalidArgumentException
      */
     public function setIntensity(int $intensity): Emotion
     {
+        $this->validateIntensity($intensity);
+
         $this->intensity = $intensity;
 
         return $this;
+    }
+
+    /**
+     * @param int $intensity
+     */
+    private function validateIntensity(int $intensity)
+    {
+        if (false === in_array($intensity, self::getIntensities())) {
+            throw new \InvalidArgumentException();
+        }
     }
 }
