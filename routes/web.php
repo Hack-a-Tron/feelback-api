@@ -11,13 +11,16 @@
 |
 */
 
+use App\FeelBack\Persistence\ActiveRecord\Survey;
+
 $router->group(['middleware' => 'auth', 'prefix' => 'admin'], function () use ($router) {
     $router->get('/', function () use ($router) {
         return $router->app->version();
     });
 
-    $router->get('surveys', ['uses' => 'SurveysController@showSurveys']);
-    $router->get('surveys/create', ['uses' => 'SurveysController@createSurvey']);
+    $router->get('surveys', function() {
+        return Survey::paginate();
+    });
     $router->post('surveys', ['uses' => 'SurveysController@storeSurvey']);
     $router->get('surveys/{id}', ['uses' => 'SurveysController@showSurvey']);
     $router->post('surveys/{id}', ['uses' => 'SurveysController@updateSurvey']);

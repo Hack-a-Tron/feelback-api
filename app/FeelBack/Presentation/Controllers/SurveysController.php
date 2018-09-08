@@ -11,18 +11,49 @@ use Illuminate\Http\Request;
 
 class SurveysController extends Controller
 {
+    /**
+     * Create survey in database
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storeSurvey(Request $request) {
+        $survey = new Survey();
+
+        $survey->code = $request->input('code');
+        $survey->title = $request->input('title');
+        $survey->description = $request->input('description');
+
+        $response = $survey->save();
+
+        return response()->json([$response]);
+    }
+
+    /**
+     * Display survey to frontend
+     *
+     * @param string $survey_code
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function displaySurvey($survey_code) {
         $survey = Survey::where('code', '=', $survey_code)->get();
 
         //TODO: maybe map to domain model
 
-        return response()->json([$survey]);
+        return response()->json([$survey->toArray()]);
     }
 
+    /**
+     * @param string $survey_code
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function displaySurveyEntities($survey_code) {
         $entities = Survey::where('code', '=', $survey_code)->first()->roles()->get();
 
-        return response()->json($entities);
+        return response()->json($entities->toArray());
     }
 
     /**
