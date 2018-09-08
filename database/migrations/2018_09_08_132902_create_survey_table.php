@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateSurveyTable extends Migration
 {
@@ -32,6 +33,8 @@ class CreateSurveyTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('survey');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

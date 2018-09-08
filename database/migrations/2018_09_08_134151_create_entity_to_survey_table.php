@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
-class CreateEntitySurveyTable extends Migration
+class CreateEntityToSurveyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -33,6 +34,8 @@ class CreateEntitySurveyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entity_survey');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::dropIfExists('entity_to_survey');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
