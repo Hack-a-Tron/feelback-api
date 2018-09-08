@@ -38,10 +38,10 @@ class EntitiesController extends Controller
         //TODO: upload file
         $entity->image = '';
         $entity->category_id = $request->input('category');
+        $entity->save();
+        $entity = Entity::find($entity->id)->toArray();
 
-        $response = $entity->save();
-
-        return response()->json([$response]);
+        return response()->json([$entity]);
     }
 
     /**
@@ -70,20 +70,20 @@ class EntitiesController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateEntity(Request $request, $entity_code) {
-        $emotion = Emotion::where('code', $entity_code)->get();
+        $entity = Entity::where('code', $entity_code)->get();
 
-        if (null == $emotion) {
+        if (null == $entity) {
             return response()->json([], 404);
         }
 
-        $emotion->name = $request->input('name');
-        $emotion->description = $request->input('description');
+        $entity->name = $request->input('name');
+        $entity->description = $request->input('description');
         //TODO: upload file
-        $emotion->image = '';
+        $entity->image = '';
+        $entity->save();
+        $entity = Entity::find($entity->id)->toArray();
 
-        $response = $emotion->save();
-
-        return response()->json([$response]);
+        return response()->json([$entity]);
     }
 
     /**
