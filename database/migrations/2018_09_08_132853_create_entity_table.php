@@ -16,6 +16,7 @@ class CreateEntityTable extends Migration
         Schema::create('entity', function (Blueprint $table) {
             $table->increments('id');
             $table->unique('code');
+            $table->string('name');
             $table->longText('description');
             $table->string('image');
             $table->unsignedInteger('category_id');
