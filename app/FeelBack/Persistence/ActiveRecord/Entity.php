@@ -15,6 +15,9 @@ class Entity extends Model
      */
     protected $table = 'entity';
 
+    /**
+     * @var array 
+     */
     protected $guarded = ['id'];
 
     /**

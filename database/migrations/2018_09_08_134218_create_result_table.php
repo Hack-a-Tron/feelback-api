@@ -18,6 +18,7 @@ class CreateResultTable extends Migration
             $table->unsignedInteger('survey_id');
             $table->unsignedInteger('entity_id');
             $table->unsignedInteger('emotion_id');
+            $table->integer('intensity');
             $table->timestamps();
             $table->softDeletes();
 
