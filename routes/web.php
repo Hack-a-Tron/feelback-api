@@ -11,9 +11,11 @@
 |
 */
 
-use App\FeelBack\Persistence\ActiveRecord\Survey;
-
-$router->group(['middleware' => 'auth', 'prefix' => 'admin'], function () use ($router) {
+$router->group([
+//    'middleware' => 'auth',
+    'prefix'    => 'admin',
+    'namespace' => '\App\FeelBack\Presentation\Controllers',
+], function () use ($router) {
     $router->get('/', function () use ($router) {
         return $router->app->version();
     });
