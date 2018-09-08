@@ -5,6 +5,7 @@ namespace App\FeelBack\Presentation\Controllers;
 use App\FeelBack\Persistence\ActiveRecord\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 /**
  * Class CategoriesController
@@ -31,7 +32,7 @@ class CategoriesController extends Controller
     public function storeCategory(Request $request) {
         $category = new Category();
 
-        $category->code = $request->input('code');
+        $category->code = (string) Str::uuid();
         $category->name = $request->input('name');
         $category->description = $request->input('description');
 
@@ -40,5 +41,52 @@ class CategoriesController extends Controller
         return response()->json([$response]);
     }
 
+    /**
+     * Display category in admin panel
+     *
+     * @param string $category_code
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showCategory($category_code) {
+        $category = Category::where('code', $category_code)->get();
 
+        if (null == $category) {
+            return response()->json([], 404);
+        }
+
+        return response()->json([$category->toArray()]);
+    }
+
+    /**
+     * Update category in database
+     *
+     * @param Request $request
+     * @param string $category_code
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateCategory(Request $request, $category_code) {
+        $category = Category::where('code', $category_code)->get();
+
+        if (null == $category) {
+            return response()->json([], 404);
+        }
+
+        $category->name = $request->input('name');
+        $category->description = $request->input('description');
+
+        $response = $category->save();
+
+        return response()->json([$response]);
+    }
+
+    /**
+     * Delete category
+     *
+     * @param string $category_code
+     */
+    public function deleteCategory($category_code) {
+        Category::where('code', '=', $category_code)->first()->delete();
+    }
 }

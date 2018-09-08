@@ -27,7 +27,7 @@ class Survey extends Model
      */
     public function entities()
     {
-        return $this->belongsToMany('App\FeelBack\Persistence\ActiveRecord\Entity', 'entity_to_survey');
+        return $this->belongsToMany('App\FeelBack\Persistence\ActiveRecord\Entity', 'entity_to_survey')->withPivot('order')->withTimestamps();
     }
 
     public function results()
