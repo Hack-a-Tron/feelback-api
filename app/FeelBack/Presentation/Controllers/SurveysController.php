@@ -38,9 +38,8 @@ class SurveysController extends Controller
         $survey->code = (string) Str::uuid();
         $survey->title = $request->input('title');
         $survey->description = $request->input('description');
-        $response = $survey->save();
 
-        //TODO: save entities assigned to survey
+        $survey->save();
 
         foreach ($request->input('entities') as $entity) {
             $entity_details = Entity::where('code', '=', $entity['code'])->first();
@@ -54,7 +53,7 @@ class SurveysController extends Controller
             ]);
         }
 
-        $response = $response->toArray();
+        $response = Survey::find($survey->id)->get()->toArray();
         $response['entities'] = $survey->entities()->get()->toArray();
 
         return response()->json([$response]);
@@ -96,7 +95,7 @@ class SurveysController extends Controller
         $survey->title = $request->input('title');
         $survey->description = $request->input('description');
 
-        $response = $survey->save();
+        $survey->save();
 
         $survey->entities()->detach();
 
@@ -112,7 +111,7 @@ class SurveysController extends Controller
             ]);
         }
 
-        $response = $response->toArray();
+        $response = Survey::find($survey->id)->get()->toArray();
         $response['entities'] = $survey->entities()->get()->toArray();
 
         return response()->json([$response]);

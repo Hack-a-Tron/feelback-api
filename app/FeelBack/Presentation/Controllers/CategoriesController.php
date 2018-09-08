@@ -35,10 +35,10 @@ class CategoriesController extends Controller
         $category->code = (string) Str::uuid();
         $category->name = $request->input('name');
         $category->description = $request->input('description');
+        $category->save();
+        $category = Category::find($category->id)->toArray();
 
-        $response = $category->save();
-
-        return response()->json([$response]);
+        return response()->json([$category]);
     }
 
     /**
@@ -75,10 +75,10 @@ class CategoriesController extends Controller
 
         $category->name = $request->input('name');
         $category->description = $request->input('description');
+        $category->save();
+        $category = Category::find($category->id)->toArray();
 
-        $response = $category->save();
-
-        return response()->json([$response]);
+        return response()->json([$category]);
     }
 
     /**

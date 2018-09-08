@@ -37,10 +37,10 @@ class EmotionsController extends Controller
         $emotion->description = $request->input('description');
         //TODO: upload file
         $emotion->image = '';
+        $emotion->save();
+        $emotion = Emotion::find($emotion->id)->toArray();
 
-        $response = $emotion->save();
-
-        return response()->json([$response]);
+        return response()->json([$emotion]);
     }
 
     /**
@@ -79,10 +79,10 @@ class EmotionsController extends Controller
         $emotion->description = $request->input('description');
         //TODO: upload file
         $emotion->image = '';
+        $emotion->save();
+        $emotion = Emotion::find($emotion->id)->toArray();
 
-        $response = $emotion->save();
-
-        return response()->json([$response]);
+        return response()->json([$emotion]);
     }
 
     /**
