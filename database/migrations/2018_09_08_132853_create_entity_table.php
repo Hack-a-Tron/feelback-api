@@ -15,14 +15,16 @@ class CreateEntityTable extends Migration
     {
         Schema::create('entity', function (Blueprint $table) {
             $table->increments('id');
-            $table->unique('code');
+            $table->string('code');
             $table->string('name');
             $table->longText('description');
             $table->string('image');
             $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('category');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique('code');
+            $table->foreign('category_id')->references('id')->on('category');
         });
     }
 

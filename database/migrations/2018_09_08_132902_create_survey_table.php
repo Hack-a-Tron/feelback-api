@@ -15,10 +15,12 @@ class CreateSurveyTable extends Migration
     {
         Schema::create('survey', function (Blueprint $table) {
             $table->increments('id');
-            $table->unique('code');
+            $table->string('code');
             $table->longText('description');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique('code');
         });
     }
 

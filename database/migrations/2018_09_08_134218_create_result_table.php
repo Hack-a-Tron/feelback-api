@@ -16,13 +16,14 @@ class CreateResultTable extends Migration
         Schema::create('result', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('survey_id');
-            $table->foreign('survey_id')->references('id')->on('survey');
             $table->unsignedInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
             $table->unsignedInteger('emotion_id');
-            $table->foreign('emotion_id')->references('id')->on('emotion');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('survey_id')->references('id')->on('survey');
+            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('emotion_id')->references('id')->on('emotion');
         });
     }
 

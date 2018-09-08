@@ -16,12 +16,13 @@ class CreateEntitySurveyTable extends Migration
         Schema::create('entity_to_survey', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('survey_id');
-            $table->foreign('survey_id')->references('id')->on('survey');
             $table->unsignedInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
             $table->integer('order');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('survey_id')->references('id')->on('survey');
+            $table->foreign('entity_id')->references('id')->on('entity');
         });
     }
 

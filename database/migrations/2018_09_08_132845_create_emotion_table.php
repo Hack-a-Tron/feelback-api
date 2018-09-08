@@ -15,11 +15,13 @@ class CreateEmotionTable extends Migration
     {
         Schema::create('emotion', function (Blueprint $table) {
             $table->increments('id');
-            $table->unique('code');
+            $table->string('code');
             $table->string('name');
             $table->longText('description');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique('code');
         });
     }
 
