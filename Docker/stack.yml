@@ -2,29 +2,28 @@ version: '3.5'
 
 services:
 
-
   web:
     build: ./php
     restart: always
     ports:
       - 8888:80
-    environment:
-      XDEBUG_CONFIG: remote_host=host.docker.internal
+#    environment:
+#      XDEBUG_CONFIG: remote_host=host.docker.internal
     volumes:
       - ./../:/var/www
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./php/nginx.conf:/etc/nginx/conf.d/default.conf
 
-  db:
-    build: ./db
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: test
-    ports:
-      - 3306:3306
-
-  phpmyadmin:
-    build: ./phpmyadmin
-    restart: always
-    ports:
-      - 8080:80
+#  db:
+#    build: ./db
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: test
+#    ports:
+#      - 3306:3306
+#
+#  phpmyadmin:
+#    build: ./phpmyadmin
+#    restart: always
+#    ports:
+#      - 8080:80
