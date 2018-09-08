@@ -18,7 +18,8 @@ class EntitiesController extends Controller
      *
      * @return mixed
      */
-    public function showEntities() {
+    public function showEntities()
+    {
         return Entity::paginate(10);
     }
 
@@ -29,10 +30,11 @@ class EntitiesController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function storeEntity(Request $request) {
+    public function storeEntity(Request $request)
+    {
         $entity = new Entity();
 
-        $entity->code = (string) Str::uuid();
+        $entity->code = (string)Str::uuid();
         $entity->name = $request->input('name');
         $entity->description = $request->input('description');
         //TODO: upload file
@@ -51,7 +53,8 @@ class EntitiesController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function showEntity($entity_code) {
+    public function showEntity($entity_code)
+    {
         $entity = Entity::where('code', $entity_code)->get();
 
         if (null == $entity) {
@@ -65,11 +68,12 @@ class EntitiesController extends Controller
      * Update entity in database
      *
      * @param Request $request
-     * @param string $entity_code
+     * @param string  $entity_code
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateEntity(Request $request, $entity_code) {
+    public function updateEntity(Request $request, $entity_code)
+    {
         $entity = Entity::where('code', $entity_code)->get();
 
         if (null == $entity) {
@@ -91,7 +95,8 @@ class EntitiesController extends Controller
      *
      * @param string $entity_code
      */
-    public function deleteEntity($entity_code) {
+    public function deleteEntity($entity_code)
+    {
         Entity::where('code', '=', $entity_code)->first()->delete();
     }
 }

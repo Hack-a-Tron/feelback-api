@@ -3,6 +3,7 @@
 namespace App\FeelBack\Persistence\ActiveRecord;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Entity
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Entity extends Model
 {
+    use SoftDeletes;
+
     /**
      * @var string
      */

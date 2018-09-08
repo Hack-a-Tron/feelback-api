@@ -22,7 +22,8 @@ class SurveysController extends Controller
      *
      * @return mixed
      */
-    public function showSurveys() {
+    public function showSurveys()
+    {
         return Survey::paginate(10);
     }
 
@@ -33,10 +34,11 @@ class SurveysController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function storeSurvey(Request $request) {
+    public function storeSurvey(Request $request)
+    {
         $survey = new Survey();
 
-        $survey->code = (string) Str::uuid();
+        $survey->code = (string)Str::uuid();
         $survey->title = $request->input('title');
         $survey->description = $request->input('description');
 
@@ -49,8 +51,8 @@ class SurveysController extends Controller
                 [
                     'survey_id' => $survey->id,
                     'entity_id' => $entity_details->id,
-                    'order' => $entity['order']
-                ]
+                    'order'     => $entity['order'],
+                ],
             ]);
         }
 
@@ -67,7 +69,8 @@ class SurveysController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function showSurvey($survey_code) {
+    public function showSurvey($survey_code)
+    {
         $survey = Survey::where('code', $survey_code)->get();
 
         if (null == $survey) {
@@ -81,11 +84,12 @@ class SurveysController extends Controller
      * Update survey
      *
      * @param Request $request
-     * @param string $survey_code
+     * @param string  $survey_code
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateSurvey(Request $request, $survey_code) {
+    public function updateSurvey(Request $request, $survey_code)
+    {
         /** @var Survey $survey */
         $survey = Survey::where('code', $survey_code)->get();
 
@@ -107,8 +111,8 @@ class SurveysController extends Controller
                 [
                     'survey_id' => $survey->id,
                     'entity_id' => $entity_details->id,
-                    'order' => $entity['order']
-                ]
+                    'order'     => $entity['order'],
+                ],
             ]);
         }
 
@@ -123,7 +127,8 @@ class SurveysController extends Controller
      *
      * @param string $survey_code
      */
-    public function deleteSurvey($survey_code) {
+    public function deleteSurvey($survey_code)
+    {
         Survey::where('code', '=', $survey_code)->first()->delete();
     }
 
@@ -134,7 +139,8 @@ class SurveysController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function displaySurvey($survey_code) {
+    public function displaySurvey($survey_code)
+    {
         $survey = Survey::where('code', '=', $survey_code)->get();
 
         //TODO: maybe map to domain model
@@ -147,7 +153,8 @@ class SurveysController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function displaySurveyEntities($survey_code) {
+    public function displaySurveyEntities($survey_code)
+    {
         $entities = Survey::where('code', '=', $survey_code)->first()->entities()->orderBy('order')->get();
 
         return response()->json($entities->toArray());
@@ -155,11 +162,12 @@ class SurveysController extends Controller
 
     /**
      * @param Request $request
-     * @param string $survey_code
+     * @param string  $survey_code
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function saveSurveyEntry(Request $request, $survey_code) {
+    public function saveSurveyEntry(Request $request, $survey_code)
+    {
         $survey = Survey::where('code', '=', $survey_code)->first();
         $entity = Entity::where('code', '=', $request->input('entity'));
         $emotion = Emotion::where('code', '=', $request->input('emotion'));

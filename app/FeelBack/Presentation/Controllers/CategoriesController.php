@@ -18,7 +18,8 @@ class CategoriesController extends Controller
      *
      * @return mixed
      */
-    public function showCategories() {
+    public function showCategories()
+    {
         return Category::paginate(10);
     }
 
@@ -29,10 +30,11 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function storeCategory(Request $request) {
+    public function storeCategory(Request $request)
+    {
         $category = new Category();
 
-        $category->code = (string) Str::uuid();
+        $category->code = (string)Str::uuid();
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->save();
@@ -48,7 +50,8 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function showCategory($category_code) {
+    public function showCategory($category_code)
+    {
         $category = Category::where('code', $category_code)->get();
 
         if (null == $category) {
@@ -62,11 +65,12 @@ class CategoriesController extends Controller
      * Update category in database
      *
      * @param Request $request
-     * @param string $category_code
+     * @param string  $category_code
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateCategory(Request $request, $category_code) {
+    public function updateCategory(Request $request, $category_code)
+    {
         $category = Category::where('code', $category_code)->get();
 
         if (null == $category) {
@@ -86,7 +90,8 @@ class CategoriesController extends Controller
      *
      * @param string $category_code
      */
-    public function deleteCategory($category_code) {
+    public function deleteCategory($category_code)
+    {
         Category::where('code', '=', $category_code)->first()->delete();
     }
 }
