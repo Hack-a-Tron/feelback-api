@@ -38,6 +38,12 @@ $router->group([
     $router->post('categories/{id}', ['uses' => 'CategoriesController@updateCategory']);
     $router->delete('categories/{id}', ['uses' => 'CategoriesController@deleteCategory']);
 
+    $router->get('entities', ['uses' => 'EntitiesController@showEntities']);
+    $router->post('entities', ['uses' => 'EntitiesController@storeEntity']);
+    $router->get('entities/{id}', ['uses' => 'EntitiesController@showEntity']);
+    $router->post('entities/{id}', ['uses' => 'EntitiesController@updateEntity']);
+    $router->delete('entities/{id}', ['uses' => 'EntitiesController@deleteEntity']);
+
     $router->get('emotions', ['uses' => 'EmotionsController@showEmotions']);
     $router->post('emotions', ['uses' => 'EmotionsController@storeEmotion']);
     $router->get('emotions/{id}', ['uses' => 'EmotionsController@showEmotion']);
