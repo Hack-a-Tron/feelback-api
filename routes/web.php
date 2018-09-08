@@ -18,9 +18,7 @@ $router->group(['middleware' => 'auth', 'prefix' => 'admin'], function () use ($
         return $router->app->version();
     });
 
-    $router->get('surveys', function() {
-        return Survey::paginate();
-    });
+    $router->get('surveys', ['uses' => 'SurveysController@showSurveys']);
     $router->post('surveys', ['uses' => 'SurveysController@storeSurvey']);
     $router->get('surveys/{id}', ['uses' => 'SurveysController@showSurvey']);
     $router->post('surveys/{id}', ['uses' => 'SurveysController@updateSurvey']);
@@ -33,14 +31,12 @@ $router->group(['middleware' => 'auth', 'prefix' => 'admin'], function () use ($
     $router->get('results', ['uses' => 'ResultsController@showDashboard']);
 
     $router->get('categories', ['uses' => 'CategoriesController@showCategories']);
-    $router->get('categories/create', ['uses' => 'CategoriesController@createCategory']);
     $router->post('categories', ['uses' => 'CategoriesController@storeCategory']);
     $router->get('categories/{id}', ['uses' => 'CategoriesController@showCategory']);
     $router->post('categories/{id}', ['uses' => 'CategoriesController@updateCategory']);
     $router->delete('categories/{id}', ['uses' => 'CategoriesController@deleteCategory']);
 
     $router->get('emotions', ['uses' => 'EmotionsController@showEmotions']);
-    $router->get('emotions/create', ['uses' => 'EmotionsController@createEmotion']);
     $router->post('emotions', ['uses' => 'EmotionsController@storeEmotion']);
     $router->get('emotions/{id}', ['uses' => 'EmotionsController@showEmotion']);
     $router->post('emotions/{id}', ['uses' => 'EmotionsController@updateEmotion']);

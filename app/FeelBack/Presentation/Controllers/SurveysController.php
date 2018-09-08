@@ -16,6 +16,15 @@ use Illuminate\Http\Request;
 class SurveysController extends Controller
 {
     /**
+     * Display surveys in admin panel
+     *
+     * @return mixed
+     */
+    public function showSurveys() {
+        return Survey::paginate(10);
+    }
+
+    /**
      * Create survey in database
      *
      * @param Request $request
