@@ -9,7 +9,7 @@ class SurveyTest extends TestCase
     {
         $emotions1 = [
             'INC268A99T', // 'Joy',
-            'O83FCDHPLM', // 'Trust',
+            'O83FCDHPTL', // 'Trust',
             'AGYNHQK8S6', // 'Fear',
             'CVPBNMJOHN', // 'Surprise'
         ];

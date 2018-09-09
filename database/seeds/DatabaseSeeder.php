@@ -49,7 +49,7 @@ class EmotionSeeder extends Seeder
         ]);
 
         Emotion::create([
-            'code'        => 'O83FCDHPLM',
+            'code'        => 'O83FCDHPTL',
             'name'        => 'Trust',
             'description' => '',
             'image'       => '',
