@@ -170,23 +170,35 @@ class SurveysController extends Controller
     public function saveSurveyEntry(Request $request, $survey_code)
     {
         $survey = Survey::where('code', '=', $survey_code)->first();
-        $entity = Entity::where('code', '=', $request->input('entity'));
-        $emotion = Emotion::where('code', '=', $request->input('emotion'));
-        $customer = Customer::where('code', '=', $request->input('customer'));
+        $customer = Customer::where('code', '=', $request->input('customer'))->first();
 
-        if (null == $survey || null == $entity || null == $emotion) {
+        if (null == $survey || null == $customer) {
             return response()->json([], 404);
         }
 
-        $result = new Result();
-        $result->survey_id = $survey['id'];
-        $result->entity_id = $entity['id'];
-        $result->emotion_id = $emotion['id'];
-        $result->customer_id = $customer['id'];
-        $result->intensity = $request->input('intensity');
 
-        $response = $result->save();
+        $surveyResponses = $request->input('responses');
 
-        return response()->json([$response]);
+        $saved = 0;
+
+        foreach ($surveyResponses as $surveyResponse) {
+            $result = new Result();
+            $result->survey_id = $survey['id'];
+            $result->customer_id = $customer['id'];
+
+            $entity = Entity::where('code', '=', $surveyResponse['entity'])->first();
+            $emotion = Emotion::where('code', '=', $surveyResponse['emotion'])->first();
+
+            if (null !== $survey || null !== $customer) {
+                $result->entity_id = $entity['id'];
+                $result->emotion_id = $emotion['id'];
+//            $result->intensity = $surveyResponse['intensity'];
+
+                $result->save();
+                $saved++;
+            }
+        }
+
+        return response()->json([(bool)$saved], 201);
     }
 }

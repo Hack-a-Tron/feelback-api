@@ -57,10 +57,21 @@ $router->group([
     $router->delete('customers/{id}', ['uses' => 'CustomersController@delete']);
 });
 
+
+$router->group([
+//    'middleware' => 'auth',
+    'prefix'    => 'api',
+    'namespace' => '\App\FeelBack\Presentation\Controllers',
+], function () use ($router) {
+    $router->get('/', function () use ($router) {
+        return $router->app->version();
+    });
+
+    $router->get('survey/{id}', ['uses' => 'SurveysController@displaySurvey']);
+    $router->get('survey/{id}/entities', ['uses' => 'SurveysController@displayEntities']);
+    $router->post('survey/{id}', ['uses' => 'SurveysController@saveSurveyEntry']);
+});
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-
-$router->get('survey/{id}', ['uses' => 'SurveysController@displaySurvey']);
-$router->get('survey/{id}/entities', ['uses' => 'SurveysController@displayEntities']);
-$router->post('survey/{id}', ['uses' => 'SurveysController@saveSurveyEntry']);
