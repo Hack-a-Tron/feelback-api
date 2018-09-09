@@ -76,6 +76,9 @@ $router->group([
     $router->get('survey/{id}', ['uses' => 'SurveysController@displaySurvey']);
     $router->get('survey/{id}/entities', ['uses' => 'SurveysController@displaySurveyEntities']);
     $router->post('survey/{id}', ['uses' => 'SurveysController@saveSurveyEntry']);
+    $router->options('survey/{id}', function() {
+        return '';
+    });
 });
 
 $router->get('/', function () use ($router) {
