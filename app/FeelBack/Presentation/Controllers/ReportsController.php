@@ -3,6 +3,8 @@
 namespace App\FeelBack\Presentation\Controllers;
 
 use App\FeelBack\Persistence\ActiveRecord\Category;
+use App\FeelBack\Persistence\ActiveRecord\Emotion;
+use App\FeelBack\Persistence\ActiveRecord\Entity;
 use App\FeelBack\Persistence\ActiveRecord\Result;
 use App\FeelBack\Persistence\ActiveRecord\Survey;
 use App\Http\Controllers\Controller;
@@ -18,6 +20,10 @@ class ReportsController extends Controller
 {
     public function showReport(Request $request, $type)
     {
+        $results = [];
+        $entities = [];
+        $emotions = [];
+
         $surveyCode = $request->get('surveyCode');
 
         $survey = Survey::where('code', '=', $surveyCode)->first();
@@ -25,74 +31,46 @@ class ReportsController extends Controller
             return response()->json([], 404);
         }
 
-        $results = Result::where('survey_id', '=', $survey['id'])->get();
+        $surveyEntries = Result::where('survey_id', '=', $survey['id'])->get();
 
-        $resultsc = DB::table('result')
-            ->select('customer_id', DB::raw('count(*) a+s total'))
-            ->groupBy( 'emotion_id', 'customer_id')
-            ->get();
-var_dump($resultsc); die;
-        $return = [];
-
-//        $return = [
-//            [
-//                'entity' => 'MVK7SM1339',
-//                'stats'  => [
-//                    [
-//                        'emotion' => 'INC268A99T',
-//                        'votes'   => 5,
-//                        'percent' => '',
-//                    ],
-//                    [
-//                        'emotion' => 'INC268A99T',
-//                        'votes'   => 5,
-//                        'percent' => '',
-//                    ],
-//                    [
-//                        'emotion' => 'INC268A99T',
-//                        'votes'   => 5,
-//                        'percent' => '',
-//                    ],
-//                ],
-//            ],
-//        ];
-
-        foreach ($results as $result) {
-            if (!empty($return[$result['entity_id']][$result['emotion_id']])) {
-                $return[$result['entity_id']][$result['emotion_id']]++;
-                // customer ++ ???
-            } else {
-                $return[$result['entity_id']][$result['emotion_id']] = 1;
+        foreach ($surveyEntries as $entry) {
+            if (!isset($entities[$entry['entity_id']])) {
+                $entities[$entry['entity_id']] = Entity::where('id', $entry['entity_id'])->first();
             }
-//
-//            var_dump($result);
-//            die;
 
-            /**
-             * ["id"]=>
-             * int(1)
-             * ["survey_id"]=>
-             * int(1)
-             * ["entity_id"]=>
-             * int(1)
-             * ["emotion_id"]=>
-             * int(1)
-             * ["customer_id"]=>
-             * int(2)
-             */
+            $entity = $entities[$entry['entity_id']];
+
+            if (!isset($results[$entity['code']])) {
+                $results[$entity['code']]['code'] = $entity['code'];
+                $results[$entity['code']]['name'] = $entity['name'];
+                $results[$entity['code']]['description'] = $entity['description'];
+                $results[$entity['code']]['image'] = $entity['image'];
+
+                $results[$entity['code']]['total_submits'] = 0;
+                $results[$entity['code']]['emotions'] = [];
+            }
+
+            $results[$entity['code']]['total_submits']++;
+
+            if (!empty($entry['emotion_id'])) {
+                if (empty($emotions[$entry['emotion_id']])) {
+                    $emotions[$entry['emotion_id']] = Emotion::where('id', $entry['emotion_id'])->first();
+                }
+
+                $emotion = $emotions[$entry['emotion_id']];
+
+                if (!isset($results[$entity['code']]['emotions'][$emotion['code']])) {
+                    $results[$entity['code']]['emotions'][$emotion['code']]['code'] = $emotion['code'];
+                    $results[$entity['code']]['emotions'][$emotion['code']]['name'] = $emotion['name'];
+                    $results[$entity['code']]['emotions'][$emotion['code']]['description'] = $emotion['description'];
+                    $results[$entity['code']]['emotions'][$emotion['code']]['image'] = $emotion['image'];
+                    $results[$entity['code']]['emotions'][$emotion['code']]['count'] = 0;
+                }
+
+                $results[$entity['code']]['emotions'][$emotion['code']]['count']++;
+            }
         }
 
-
-        foreach ($return as $entity_id => $value)
-
-
-        var_dump($return);
-
-//        var_dump(count($reports));
-        die;
-
-
-
-//        var_dump($type, $surveyCode); die;
+        return response()->json($results);
     }
 }
