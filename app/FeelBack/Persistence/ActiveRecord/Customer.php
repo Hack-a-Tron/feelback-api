@@ -26,5 +26,5 @@ class Customer extends Model
     /**
      * @var array
      */
-    protected $hidden = ['id'];
+    protected $hidden = ['id', 'deleted_at'];
 }

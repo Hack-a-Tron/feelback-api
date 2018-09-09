@@ -41,6 +41,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Joy',
             'description' => '',
             'image'       => '',
+            'order'       => 1,
+            'pair'        => 'a',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -51,6 +53,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Trust',
             'description' => '',
             'image'       => '',
+            'order'       => 2,
+            'pair'        => 'b',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -61,6 +65,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Fear',
             'description' => '',
             'image'       => '',
+            'order'       => 7,
+            'pair'        => 'c',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -71,6 +77,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Surprise',
             'description' => '',
             'image'       => '',
+            'order'       => 8,
+            'pair'        => 'd',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -81,6 +89,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Sadness',
             'description' => '',
             'image'       => '',
+            'order'       => 5,
+            'pair'        => 'a',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -91,6 +101,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Disgust',
             'description' => '',
             'image'       => '',
+            'order'       => 6,
+            'pair'        => 'b',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -101,6 +113,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Anger',
             'description' => '',
             'image'       => '',
+            'order'       => 3,
+            'pair'        => 'c',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -111,6 +125,8 @@ class EmotionSeeder extends Seeder
             'name'        => 'Anticipation',
             'description' => '',
             'image'       => '',
+            'order'       => 4,
+            'pair'        => 'd',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -128,7 +144,7 @@ class CategorySeeder extends Seeder
         DB::table('category')->delete();
 
         Category::create([
-            'code'        => 'exp',
+            'code'        => 'PK4QTDJ6JZ',
             'name'        => 'Experience',
             'description' => '',
             'created_at'  => time(),
@@ -137,7 +153,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::create([
-            'code'        => 'aof',
+            'code'        => 'SBGP1XLP7I',
             'name'        => 'App/Feature',
             'description' => '',
             'created_at'  => time(),
@@ -146,7 +162,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::create([
-            'code'        => 'pos',
+            'code'        => 'NGW9F4YU1Y',
             'name'        => 'Product/Service',
             'description' => '',
             'created_at'  => time(),
@@ -155,7 +171,7 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::create([
-            'code'        => 'prs',
+            'code'        => 'GUEOVW5XMK',
             'name'        => 'Person',
             'description' => '',
             'created_at'  => time(),
@@ -164,7 +180,6 @@ class CategorySeeder extends Seeder
         ]);
     }
 }
-
 
 /**
  * Class CustomerSeeder
@@ -176,7 +191,7 @@ class CustomerSeeder extends Seeder
         DB::table('customer')->delete();
 
         Customer::create([
-            'code'       => 'userone',
+            'code'       => 'L964DX6Q4C',
             'name'       => 'John Duet',
             'created_at' => time(),
             'updated_at' => time(),
@@ -184,7 +199,6 @@ class CustomerSeeder extends Seeder
         ]);
     }
 }
-
 
 /**
  * Class EntitySeeder
@@ -196,64 +210,61 @@ class EntitySeeder extends Seeder
         DB::table('entity')->delete();
 
         Entity::create([
-            'code'        => 'expe',
-            'name'        => 'Experienta Emag',
+            'code'        => 'MVK7SM1339',
+            'name'        => 'eMAG Brand',
             'description' => '',
-            'image'       => '/path/to/img.png',
-            'category_id' => Category::where('code', '=', 'exp')->first()['id'],
+            'image'       => 'emag-logo.png',
+            'category_id' => Category::where('code', '=', 'PK4QTDJ6JZ')->first()['id'],
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
         ]);
 
         Entity::create([
-            'code'        => 'serc',
-            'name'        => 'Search in site',
+            'code'        => 'ZIHEY98DJ1',
+            'name'        => 'Searching in site',
             'description' => '',
-            'image'       => '/path/to/img.png',
-            'category_id' => Category::where('code', '=', 'aof')->first()['id'],
+            'image'       => 'search.png',
+            'category_id' => Category::where('code', '=', 'SBGP1XLP7I')->first()['id'],
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
         ]);
 
         Entity::create([
-            'code'        => 'ordr',
-            'name'        => 'Ordering',
+            'code'        => 'WPBP874SFU',
+            'name'        => 'Ordering and payment',
             'description' => '',
-            'image'       => '/path/to/img.png',
-            'category_id' => Category::where('code', '=', 'aof')->first()['id'],
+            'image'       => 'emag_card.jpg',
+            'category_id' => Category::where('code', '=', 'SBGP1XLP7I')->first()['id'],
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
         ]);
 
-
         Entity::create([
-            'code'        => 'delv',
+            'code'        => 'A0EPI43SOB',
             'name'        => 'Delivery',
             'description' => '',
-            'image'       => '/path/to/img.png',
-            'category_id' => Category::where('code', '=', 'exp')->first()['id'],
+            'image'       => 'sameday-courier-logo-full.jpg',
+            'category_id' => Category::where('code', '=', 'PK4QTDJ6JZ')->first()['id'],
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
         ]);
 
-
         Entity::create([
-            'code'        => 'prod',
-            'name'        => 'Product',
+            'code'        => '1GSDFWSGEW',
+            'name'        => 'Philips PerfectCare Pure GC7635/30',
             'description' => '',
-            'image'       => '/path/to/img.png',
-            'category_id' => Category::where('code', '=', 'pos')->first()['id'],
+            'image'       => 'philips.jpg',
+            'category_id' => Category::where('code', '=', 'NGW9F4YU1Y')->first()['id'],
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
         ]);
     }
 }
-
 
 /**
  * Class EntitySeeder
@@ -265,9 +276,9 @@ class SurveySeeder extends Seeder
         DB::table('survey')->delete();
 
         Survey::create([
-            'code'        => 'survey',
-            'title'       => 'Experienta ta cu',
-            'description' => '',
+            'code'        => 'PDNW4998Z1',
+            'title'       => 'Customer experience - eMAG order flow',
+            'description' => 'Select at most 4 emotions that can describe your experience with:',
             'created_at'  => time(),
             'updated_at'  => time(),
             'deleted_at'  => null,
@@ -286,11 +297,12 @@ class EntityToSurveySeeder extends Seeder
         DB::table('entity_to_survey')->delete();
 
         $i = 1;
+        $surveyCode = 'PDNW4998Z1';
 
         DB::table('entity_to_survey')->insert([
             [
-                'survey_id' => Survey::where('code', '=', 'survey')->first()['id'],
-                'entity_id' => Entity::where('code', '=', 'expe')->first()['id'],
+                'survey_id' => Survey::where('code', '=', $surveyCode)->first()['id'],
+                'entity_id' => Entity::where('code', '=', 'MVK7SM1339')->first()['id'],
                 'order'     => $i++,
             ],
         ]);
@@ -298,8 +310,8 @@ class EntityToSurveySeeder extends Seeder
 
         DB::table('entity_to_survey')->insert([
             [
-                'survey_id' => Survey::where('code', '=', 'survey')->first()['id'],
-                'entity_id' => Entity::where('code', '=', 'serc')->first()['id'],
+                'survey_id' => Survey::where('code', '=', $surveyCode)->first()['id'],
+                'entity_id' => Entity::where('code', '=', 'ZIHEY98DJ1')->first()['id'],
                 'order'     => $i++,
             ],
         ]);
@@ -307,8 +319,8 @@ class EntityToSurveySeeder extends Seeder
 
         DB::table('entity_to_survey')->insert([
             [
-                'survey_id' => Survey::where('code', '=', 'survey')->first()['id'],
-                'entity_id' => Entity::where('code', '=', 'ordr')->first()['id'],
+                'survey_id' => Survey::where('code', '=', $surveyCode)->first()['id'],
+                'entity_id' => Entity::where('code', '=', 'WPBP874SFU')->first()['id'],
                 'order'     => $i++,
             ],
         ]);
@@ -316,8 +328,8 @@ class EntityToSurveySeeder extends Seeder
 
         DB::table('entity_to_survey')->insert([
             [
-                'survey_id' => Survey::where('code', '=', 'survey')->first()['id'],
-                'entity_id' => Entity::where('code', '=', 'delv')->first()['id'],
+                'survey_id' => Survey::where('code', '=', $surveyCode)->first()['id'],
+                'entity_id' => Entity::where('code', '=', 'A0EPI43SOB')->first()['id'],
                 'order'     => $i++,
             ],
         ]);
@@ -325,11 +337,10 @@ class EntityToSurveySeeder extends Seeder
 
         DB::table('entity_to_survey')->insert([
             [
-                'survey_id' => Survey::where('code', '=', 'survey')->first()['id'],
-                'entity_id' => Entity::where('code', '=', 'prod')->first()['id'],
+                'survey_id' => Survey::where('code', '=', $surveyCode)->first()['id'],
+                'entity_id' => Entity::where('code', '=', '1GSDFWSGEW')->first()['id'],
                 'order'     => $i++,
             ],
         ]);
     }
 }
-

@@ -37,8 +37,9 @@ class EmotionsController extends Controller
         $emotion->code = (string)Str::uuid();
         $emotion->name = $request->input('name');
         $emotion->description = $request->input('description');
-        //TODO: upload file
-        $emotion->image = '';
+        $emotion->image = $request->input('image'); // image path
+        $emotion->order = $request->input('order');
+        $emotion->pair = $request->input('pair');
         $emotion->save();
         $emotion = Emotion::find($emotion->id)->toArray();
 
@@ -81,8 +82,9 @@ class EmotionsController extends Controller
 
         $emotion->name = $request->input('name');
         $emotion->description = $request->input('description');
-        //TODO: upload file
-        $emotion->image = '';
+        $emotion->image = $request->input('image'); // image path
+        $emotion->order = $request->input('order');
+        $emotion->pair = $request->input('pair');
         $emotion->save();
         $emotion = Emotion::find($emotion->id)->toArray();
 

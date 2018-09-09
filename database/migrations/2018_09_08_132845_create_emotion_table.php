@@ -20,6 +20,8 @@ class CreateEmotionTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->string('image');
+            $table->smallInteger('order');
+            $table->enum('pair', ['a', 'b', 'c', 'd']);
             $table->timestamps();
             $table->softDeletes();
 
