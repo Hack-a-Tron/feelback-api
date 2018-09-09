@@ -176,7 +176,6 @@ class SurveysController extends Controller
             return response()->json([], 404);
         }
 
-
         $surveyResponses = $request->input('responses');
 
         $saved = 0;
@@ -186,16 +185,18 @@ class SurveysController extends Controller
             $result->survey_id = $survey['id'];
             $result->customer_id = $customer['id'];
 
-            $entity = Entity::where('code', '=', $surveyResponse['entity'])->first();
-            $emotion = Emotion::where('code', '=', $surveyResponse['emotion'])->first();
+            if (isset($surveyResponses['entity']) && $surveyResponse['emotion']) {
+                $entity = Entity::where('code', '=', $surveyResponse['entity'])->first();
+                $emotion = Emotion::where('code', '=', $surveyResponse['emotion'])->first();
 
-            if (null !== $survey || null !== $customer) {
-                $result->entity_id = $entity['id'];
-                $result->emotion_id = $emotion['id'];
-//            $result->intensity = $surveyResponse['intensity'];
+                if (null !== $survey || null !== $customer) {
+                    $result->entity_id = $entity['id'];
+                    $result->emotion_id = $emotion['id'];
+                    //$result->intensity = $surveyResponse['intensity'];
 
-                $result->save();
-                $saved++;
+                    $result->save();
+                    $saved++;
+                }
             }
         }
 
