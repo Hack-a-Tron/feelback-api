@@ -30,7 +30,7 @@ $router->group([
     $router->delete('surveys/{id}', ['uses' => 'SurveysController@deleteSurvey']);
 
     $router->get('reports', ['uses' => 'ReportsController@showReports']);
-    $router->get('reports/{id}', ['uses' => 'ReportsController@showReport']);
+    $router->get('reports/{type}', ['uses' => 'ReportsController@showReport']);
     $router->post('reports/create', ['uses' => 'ReportsController@CreateReport']);
 
     $router->get('results', ['uses' => 'ResultsController@showDashboard']);
@@ -74,7 +74,7 @@ $router->group([
     });
 
     $router->get('survey/{id}', ['uses' => 'SurveysController@displaySurvey']);
-    $router->get('survey/{id}/entities', ['uses' => 'SurveysController@displayEntities']);
+    $router->get('survey/{id}/entities', ['uses' => 'SurveysController@displaySurveyEntities']);
     $router->post('survey/{id}', ['uses' => 'SurveysController@saveSurveyEntry']);
 });
 
