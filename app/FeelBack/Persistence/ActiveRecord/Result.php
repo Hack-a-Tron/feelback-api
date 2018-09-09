@@ -19,6 +19,11 @@ class Result extends Model
     protected $table = 'result';
 
     /**
+     * @var array
+     */
+    protected $hidden = ['id'];
+
+    /**
      * Relation with survey
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

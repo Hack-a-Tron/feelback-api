@@ -24,6 +24,11 @@ class Entity extends Model
     protected $guarded = ['id'];
 
     /**
+     * @var array
+     */
+    protected $hidden = ['id'];
+
+    /**
      * Relation with surveys
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

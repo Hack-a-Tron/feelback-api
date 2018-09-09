@@ -24,6 +24,11 @@ class Survey extends Model
     protected $guarded = ['id'];
 
     /**
+     * @var array
+     */
+    protected $hidden = ['id'];
+
+    /**
      * Relation with entities
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
