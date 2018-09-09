@@ -13,6 +13,9 @@
 
 $router->group([
 //    'middleware' => 'auth',
+    'middleware' => [
+        \App\Http\Middleware\Cors::class
+    ],
     'prefix'    => 'admin',
     'namespace' => '\App\FeelBack\Presentation\Controllers',
 ], function () use ($router) {
@@ -60,6 +63,9 @@ $router->group([
 
 $router->group([
 //    'middleware' => 'auth',
+    'middleware' => [
+        \App\Http\Middleware\Cors::class
+    ],
     'prefix'    => 'api',
     'namespace' => '\App\FeelBack\Presentation\Controllers',
 ], function () use ($router) {
