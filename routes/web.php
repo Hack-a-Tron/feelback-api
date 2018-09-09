@@ -35,8 +35,8 @@ $router->group([
 
     $router->get('results', ['uses' => 'ResultsController@showDashboard']);
 
-    $router->get('categories', ['uses' => 'CategoriesController@showCategories']);
-    $router->post('categories', ['uses' => 'CategoriesController@storeCategory']);
+    $router->get('categories', ['uses' => 'CategoriesController@list']);
+    $router->post('categories', ['uses' => 'CategoriesController@save']);
     $router->get('categories/{id}', ['uses' => 'CategoriesController@showCategory']);
     $router->post('categories/{id}', ['uses' => 'CategoriesController@updateCategory']);
     $router->delete('categories/{id}', ['uses' => 'CategoriesController@deleteCategory']);

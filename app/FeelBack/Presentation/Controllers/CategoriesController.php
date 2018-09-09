@@ -2,6 +2,8 @@
 
 namespace App\FeelBack\Presentation\Controllers;
 
+use App\FeelBack\Domain\Factories\CategoryFactory;
+use App\FeelBack\Domain\Services\CategoriesService;
 use App\FeelBack\Persistence\ActiveRecord\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,14 +15,25 @@ use Illuminate\Support\Str;
  */
 class CategoriesController extends Controller
 {
+    protected $categoriesService;
+    protected $categoryFactory;
+
+    public function __construct(
+        CategoriesService $categoriesService,
+        CategoryFactory $categoryFactory
+    ) {
+        $this->categoriesService = $categoriesService;
+        $this->categoryFactory = $categoryFactory;
+    }
+
     /**
      * Display categories in admin panel
      *
      * @return mixed
      */
-    public function showCategories()
+    public function list()
     {
-        return Category::paginate(10);
+        return $this->categoriesService->list(10);
     }
 
     /**
@@ -30,17 +43,17 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function storeCategory(Request $request)
+    public function save(Request $request)
     {
-        $category = new Category();
+        $categoryModel = $this->categoryFactory->build(
+            (string)Str::uuid(),
+            $request->input('name'),
+            $request->input('description')
+        );
 
-        $category->code = (string)Str::uuid();
-        $category->name = $request->input('name');
-        $category->description = $request->input('description');
-        $category->save();
-        $category = Category::find($category->id)->toArray();
+        $status = $this->categoriesService->save($categoryModel);
 
-        return response()->json([$category]);
+        return response()->json([$status]);
     }
 
     /**
